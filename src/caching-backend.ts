@@ -1,6 +1,7 @@
 import type { Backend } from "./backend.ts";
 import type { AssetName, AssetNames, JSONObject } from "./types.ts";
 
+/** Caching of metadata of backends such as names of folders and names of assets */
 export class CachingBackend implements Backend {
   constructor(private readonly parent: Backend) {}
 

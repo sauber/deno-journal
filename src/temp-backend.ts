@@ -1,6 +1,7 @@
 import { DiskBackend } from "./disk-backend.ts";
 import { mktmpdir, rmdir } from "./files.ts";
 
+/** Stores assets in temporary file directory */
 export class TempBackend extends DiskBackend {
   constructor() {
     super("");

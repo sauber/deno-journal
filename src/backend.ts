@@ -1,5 +1,6 @@
 import type { JSONObject, AssetName, AssetNames } from "./types.ts";
 
+/** Abstract class for implementation of backends */
 export abstract class Backend {
   /** A partition of assets */
   abstract sub(partition: string): Promise<Backend>;
