@@ -77,7 +77,7 @@ export async function age(path: string): Promise<number> {
   return now - mtime.getTime();
 }
 
-export async function remove(path: string): Promise<void> {
+export function remove(path: string): Promise<void> {
   return Deno.remove(path);
 }
 

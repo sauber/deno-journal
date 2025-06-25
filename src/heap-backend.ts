@@ -1,4 +1,4 @@
-import { Backend } from "./backend.ts";
+import type { Backend } from "./backend.ts";
 import type { JSONObject, AssetName, AssetNames } from "./mod.ts";
 
 type Asset = {

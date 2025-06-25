@@ -1,5 +1,5 @@
 import type { AssetName, AssetNames, JSONObject } from "./mod.ts";
-import { typeBackend } from "./mod.ts";
+import type { Backend } from "./mod.ts";
 import {
   age,
   dirs,

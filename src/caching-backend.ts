@@ -1,5 +1,5 @@
-import { Backend } from "./backend.ts";
-import { AssetName, AssetNames, JSONObject } from "./mod.ts";
+import type { Backend } from "./backend.ts";
+import type { AssetName, AssetNames, JSONObject } from "./mod.ts";
 
 export class CachingBackend implements Backend {
   constructor(private readonly parent: Backend) {}

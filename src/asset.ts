@@ -1,4 +1,4 @@
-import { Backend, JSONObject } from "./mod.ts";
+import type { Backend, JSONObject } from "./mod.ts";
 
 /** A storable asset */
 export class Asset<AssetType> {
