@@ -2,6 +2,16 @@
 
 Store revisions of named assets in folders in filesystem.
 
+## Testing
+
+Enable reading and writing when running tests
+
+```console
+~$ deno test --allow-write --allow-read
+[...]
+ok | 15 passed (3 steps) | 0 failed (446ms)
+```
+
 ## Examples
 
 ```typescript
