@@ -1,7 +1,7 @@
 import { assertEquals, assertInstanceOf } from "@std/assert";
 import { HeapBackend } from "./heap-backend.ts";
 import { CachingBackend } from "./caching-backend.ts";
-import type { AssetName, JSONObject } from "./mod.ts";
+import type { AssetName, JSONObject } from "./types.ts";
 import type { Backend } from "./backend.ts";
 
 const assetname = "foo";

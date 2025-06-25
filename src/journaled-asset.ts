@@ -1,5 +1,5 @@
 import { type DateFormat, today } from "@sauber/dates";
-import type { AssetName, JSONObject } from "./mod.ts";
+import type { AssetName, JSONObject } from "./types.ts";
 import type { Backend } from "./backend.ts";
 
 type Dates = DateFormat[];
