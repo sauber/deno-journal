@@ -17,6 +17,13 @@ ok | 15 passed (3 steps) | 0 failed (446ms)
 ```typescript
 import { DiskBackend } from "jsr:@sauber/journal";
 
+const assetname = "foo";
+const content = { name: "bar" };
+
 const path = "./myrepo";
 const repo = new DiskBackend(path);
+
+// Global asset
+await repo.store(assetname, content);
+const loaded = await repo.retrieve(assetname);
 ```
