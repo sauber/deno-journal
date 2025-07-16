@@ -20,7 +20,7 @@ export interface Serializer {
 /** Store investor objects on disk */
 export class DiskBackend implements Backend {
   protected formatter: Serializer = JSON;
-  protected ext = "yaml";
+  protected ext = "json";
 
   constructor(private readonly _path: string) {}
 
@@ -45,14 +45,17 @@ export class DiskBackend implements Backend {
     return parse(filename).name;
   }
 
+  /** Sub partition of repo */
   public async sub(partition: string): Promise<DiskBackend> {
     return new DiskBackend(join(await this.path(), partition));
   }
 
+  /** Names of partitions in repo */
   public async dirs(): Promise<string[]> {
     return dirs(await this.path());
   }
 
+  /** Serialize an object and store in repo */
   public async store(
     assetname: AssetName,
     data: StorableObject,
@@ -68,6 +71,7 @@ export class DiskBackend implements Backend {
     );
   }
 
+  /** Retrieve and parse an asset in repo */
   public async retrieve(assetname: AssetName): Promise<StorableObject> {
     const filename: string = await this.filename(assetname);
     const content: string = await read(filename);
@@ -80,16 +84,19 @@ export class DiskBackend implements Backend {
     }
   }
 
+  /** Verify if asset exists */
   public async has(assetname: AssetName): Promise<boolean> {
     const result: boolean = await exists(await this.filename(assetname));
     return result;
   }
 
+  /** Age in milliseconds of asset */
   public async age(assetname: AssetName): Promise<number> {
     const filename: string = await this.filename(assetname);
     return age(filename);
   }
 
+  /** List of assets in repo */
   public async names(): Promise<AssetNames> {
     const path: string = await this.path();
     try {
@@ -103,6 +110,7 @@ export class DiskBackend implements Backend {
     }
   }
 
+  /** Delete asset from repo */
   public async delete(assetname: string): Promise<void> {
     const filename: string = await this.filename(assetname);
     return remove(filename);
