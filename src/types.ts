@@ -1,15 +1,15 @@
 /** Storable values */
-export type JSONValue =
+export type StorableValue =
   | string
   | number
   | boolean
   | null
-  | JSONValue[]
-  | { [key: string]: JSONValue };
+  | StorableValue[]
+  | { [key: string]: StorableValue };
 
 /** A storable object */
-export type JSONObject = {
-  [key: string]: JSONValue;
+export type StorableObject = {
+  [key: string]: StorableValue;
 };
 
 /** Name of asset */

@@ -1,4 +1,4 @@
-import type { JSONObject, AssetName, AssetNames } from "./types.ts";
+import type { StorableObject, AssetName, AssetNames } from "./types.ts";
 
 /** Abstract class for implementation of backends */
 export abstract class Backend {
@@ -9,10 +9,10 @@ export abstract class Backend {
   abstract dirs(): Promise<string[]>;
 
   /** Store an asset object */
-  abstract store(assetname: AssetName, data: JSONObject): Promise<void>;
+  abstract store(assetname: AssetName, data: StorableObject): Promise<void>;
 
   /** Load asset object */
-  abstract retrieve(assetname: AssetName): Promise<JSONObject>;
+  abstract retrieve(assetname: AssetName): Promise<StorableObject>;
 
   /** Verify if asset exists */
   abstract has(assetname: AssetName): Promise<boolean>;

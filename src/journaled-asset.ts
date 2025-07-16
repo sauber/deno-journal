@@ -1,5 +1,5 @@
 import { type DateFormat, today } from "@sauber/dates";
-import type { AssetName, JSONObject } from "./types.ts";
+import type { AssetName, StorableObject } from "./types.ts";
 import type { Backend } from "./backend.ts";
 
 type Dates = DateFormat[];
@@ -67,7 +67,7 @@ export class JournaledAsset<AssetType> {
 
     // Store data
     const sub: Backend = await this.repo.sub(date);
-    return sub.store(this.assetname, content as JSONObject);
+    return sub.store(this.assetname, content as StorableObject);
   }
 
   /** Load data on specific date */

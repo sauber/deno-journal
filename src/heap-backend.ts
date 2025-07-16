@@ -1,8 +1,8 @@
 import type { Backend } from "./backend.ts";
-import type { JSONObject, AssetName, AssetNames } from "./types.ts";
+import type { StorableObject, AssetName, AssetNames } from "./types.ts";
 
 type Asset = {
-  content: JSONObject;
+  content: StorableObject;
   mtime: number;
 };
 
@@ -24,12 +24,12 @@ export class HeapBackend implements Backend {
     return Promise.resolve(assetname in this.heap);
   }
 
-  public store(assetname: AssetName, data: JSONObject): Promise<void> {
+  public store(assetname: AssetName, data: StorableObject): Promise<void> {
     this.heap[assetname] = { content: data, mtime: new Date().getTime() };
     return Promise.resolve();
   }
 
-  public retrieve(assetname: AssetName): Promise<JSONObject> {
+  public retrieve(assetname: AssetName): Promise<StorableObject> {
     return Promise.resolve(this.heap[assetname].content);
   }
 

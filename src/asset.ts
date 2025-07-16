@@ -1,4 +1,4 @@
-import type { JSONObject } from "./types.ts";
+import type { StorableObject } from "./types.ts";
 import type { Backend } from "./backend.ts";
 
 /** An asset which can store or retrieve itself */
@@ -20,6 +20,6 @@ export class Asset<AssetType> {
 
   /** Store content to asset */
   public store(content: AssetType): Promise<void> {
-    return this.repo.store(this.assetname, content as JSONObject);
+    return this.repo.store(this.assetname, content as StorableObject);
   }
 }

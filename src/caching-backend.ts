@@ -1,5 +1,5 @@
 import type { Backend } from "./backend.ts";
-import type { AssetName, AssetNames, JSONObject } from "./types.ts";
+import type { AssetName, AssetNames, StorableObject } from "./types.ts";
 
 /** Caching of metadata of backends such as names of folders and names of assets */
 export class CachingBackend implements Backend {
@@ -26,13 +26,13 @@ export class CachingBackend implements Backend {
     return this._names;
   }
 
-  public async store(assetname: string, data: JSONObject): Promise<void> {
+  public async store(assetname: string, data: StorableObject): Promise<void> {
     await this.parent.store(assetname, data);
     this._names = null;
     return;
   }
 
-  public retrieve(assetname: string): Promise<JSONObject> {
+  public retrieve(assetname: string): Promise<StorableObject> {
     return this.parent.retrieve(assetname);
   }
 

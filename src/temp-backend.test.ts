@@ -1,6 +1,6 @@
 import { assertEquals, assertInstanceOf } from "@std/assert";
 import { TempBackend } from "./temp-backend.ts";
-import type { AssetName, JSONObject } from "./types.ts";
+import type { AssetName, StorableObject } from "./types.ts";
 import type { Backend } from "./backend.ts";
 
 const assetname = "foo";
@@ -28,7 +28,7 @@ Deno.test("Store and Retrieve", async () => {
   assertEquals(names.size, 1);
   assertEquals(names, new Set<AssetName>([assetname]));
 
-  const investor: JSONObject = await repo.retrieve(assetname);
+  const investor: StorableObject = await repo.retrieve(assetname);
   assertEquals(investor, content);
 
   // Age is mostly positive number, but sometimes negative

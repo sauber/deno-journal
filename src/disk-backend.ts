@@ -1,4 +1,4 @@
-import type { AssetName, AssetNames, JSONObject } from "./types.ts";
+import type { AssetName, AssetNames, StorableObject } from "./types.ts";
 import type { Backend } from "./backend.ts";
 import {
   age,
@@ -12,8 +12,16 @@ import {
 } from "./files.ts";
 import { join, parse } from "@std/path";
 
+export interface Serializer {
+  stringify(object: StorableObject): string;
+  parse(str: string): StorableObject | unknown;
+}
+
 /** Store investor objects on disk */
 export class DiskBackend implements Backend {
+  protected formatter: Serializer = JSON;
+  protected ext = "yaml";
+
   constructor(private readonly _path: string) {}
 
   protected path(): Promise<string> {
@@ -24,9 +32,9 @@ export class DiskBackend implements Backend {
   private readonly normalized: Record<string, string> = {};
   protected async filename(assetname: string): Promise<string> {
     if (!(assetname in this.normalized)) {
-      this.normalized[assetname] = await join(
+      this.normalized[assetname] = join(
         await this.path(),
-        assetname + ".json",
+        assetname + "." + this.ext,
       );
     }
     return this.normalized[assetname];
@@ -45,20 +53,26 @@ export class DiskBackend implements Backend {
     return dirs(await this.path());
   }
 
-  public async store(assetname: AssetName, data: JSONObject): Promise<void> {
+  public async store(
+    assetname: AssetName,
+    data: StorableObject,
+  ): Promise<void> {
     // Ensure dir exists
     const dir: string = await this.path();
     if (!(await exists(dir))) await mkdir(dir);
 
     // Write file
-    return write(await this.filename(assetname), JSON.stringify(data));
+    return write(
+      await this.filename(assetname),
+      this.formatter.stringify(data),
+    );
   }
 
-  public async retrieve(assetname: AssetName): Promise<JSONObject> {
+  public async retrieve(assetname: AssetName): Promise<StorableObject> {
     const filename: string = await this.filename(assetname);
     const content: string = await read(filename);
     try {
-      const data: JSONObject = JSON.parse(content);
+      const data = this.formatter.parse(content) as StorableObject;
       return data;
     } catch (err) {
       console.log(filename, err);
